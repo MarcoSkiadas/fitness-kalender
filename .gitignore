@@ -8,6 +8,10 @@ backend/target/
 backend/!.mvn/wrapper/maven-wrapper.jar
 backend/!**/src/main/**/target/
 backend/!**/src/test/**/target/
+backend/.mvn
+backend/mvnw.cmd
+backend/mvnw
+
 
 #Frontend
 frontend/node_modules
