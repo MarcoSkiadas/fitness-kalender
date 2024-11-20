@@ -81,8 +81,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: push-to-docker-hub
     environment:
-      name: online-shop # Capstone Project name
-      url: https://online-shop-orb3.onrender.com # Link to deployment
+      name: Fitness Kalender App # Capstone Project name
+      url: https://fitness-kalender.onrender.com # Link to deployment
     steps:
       - name: Trigger Render.com Deployment
         run: |
