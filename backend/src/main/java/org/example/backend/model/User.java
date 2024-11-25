@@ -4,16 +4,12 @@ import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-public record Set(
+public record User(
         @Id
         String id,
-        String userId,
-        String name,
-        Exercise[] exercise,
-        Date createdAt,
-        Date updatedAt
-
-
-
+        String userName,
+        String password,
+        Date createDate,
+        Set[] sets
 ) {
 }
