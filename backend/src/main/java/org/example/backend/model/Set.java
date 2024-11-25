@@ -9,11 +9,8 @@ public record Set(
         String id,
         String userId,
         String name,
-        Exercise[] exercise,
+        SetExercise[] exercise,
         Date createdAt,
         Date updatedAt
-
-
-
 ) {
 }

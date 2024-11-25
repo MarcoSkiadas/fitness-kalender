@@ -24,7 +24,7 @@ public class SetController {
     public List<Set> getSet() {
         return setService.getSet();
     }
-@ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Set createSet(@RequestBody Set set) {
         return setService.createSet(set);
