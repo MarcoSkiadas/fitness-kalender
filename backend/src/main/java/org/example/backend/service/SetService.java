@@ -15,7 +15,7 @@ public class SetService {
 
     public Set getSetById(String setId) {
         return setRepo.findById(setId)
-                .orElseThrow(() -> new RuntimeException("set not found"));
+                .orElseThrow(() -> new RuntimeException("Set not found"));
     }
 
     public List<Set> getSet() {
