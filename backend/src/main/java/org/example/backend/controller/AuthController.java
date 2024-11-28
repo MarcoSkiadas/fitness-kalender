@@ -2,6 +2,7 @@ package org.example.backend.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.example.backend.model.User;
 import org.example.backend.repository.UserRepo;
 import org.example.backend.service.UserService;
 import org.springframework.http.HttpStatus;

@@ -12,10 +12,13 @@ export default function RegisterPage() {
     const backToLogin = () => {
         nav("/Login")
     }
+    const backToHome = () => {
+        nav("/")
+    }
 
     function submitRegister(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        axios.post("/api/auth/register", {username, password})
+        axios.post("/api/user/register", {username, password})
             .then(() => toast.success("You have been registered with Username: " + username))
             .then(() => nav("/login"))
             .catch(error => toast.error(error.response.data.errorMsg))
@@ -30,9 +33,12 @@ export default function RegisterPage() {
                     <input value={password} placeholder={"Please enter your Password"} type={"password"}
                            onChange={e => setPassword(e.target.value)} className="register-input"/>
                     <button type={"submit"} className="register-button">Register</button>
-                    <button type={"button"} onClick={backToLogin} className="back-to-login-button">Back to Login
-                    </button>
                 </form>
+                    <button type={"button"} onClick={backToLogin} className="back-to-login-button">Login
+                    </button>
+                    <button type={"button"} onClick={backToHome} className="back-to-login-button">Back to Home
+                    </button>
+
             </div>
         </div>
     )

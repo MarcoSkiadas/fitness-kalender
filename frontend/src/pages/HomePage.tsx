@@ -13,13 +13,23 @@ export default function HomePage(props: Readonly<HomepageProps>) {
     const routeLogin = () => {
         nav("/login");
     }
+    const routeRegister = () => {
+        nav("/register");
+    }
     return (
-    <div>
-        <button onClick={routeLogin}>Login</button>
-        {props.user != undefined && (
-            <button onClick={props.logout}>Logout</button>
-        )}
-        <p>User: {props.user}</p>
-    </div>
+        <div>
+            {props.user != undefined && (
+                <>
+                    <button onClick={props.logout}>Logout</button>
+                    <p>User: {props.user}</p></>
+            )
+            }
+            {props.user == undefined && (
+                <p> Please Login or Register to proceed!</p>
+            )
+            }
+            <button onClick={routeLogin}>Login</button>
+            <button onClick={routeRegister}>Register</button>
+        </div>
     )
 }

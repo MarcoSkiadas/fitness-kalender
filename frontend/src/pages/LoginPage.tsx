@@ -28,6 +28,9 @@ export default function LoginPage(props: Readonly<LoginPageProps>) {
     function register() {
         nav(`/register`)
     }
+    function backToHome() {
+        nav("/")
+    }
 
     return (
         <div className="login-page">
@@ -43,7 +46,10 @@ export default function LoginPage(props: Readonly<LoginPageProps>) {
                 </form>
                 <div className="additional-actions">
                     <button onClick={register} className="register-button">Register</button>
+                    <button type={"button"} onClick={backToHome} className="back-to-login-button">Back to Home
+                    </button>
                 </div>
+
             </div>
         </div>
     )
