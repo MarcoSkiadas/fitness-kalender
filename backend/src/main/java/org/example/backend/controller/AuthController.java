@@ -15,6 +15,14 @@ public class AuthController {
     private final UserRepo userRepo;
     private final UserService userService;
 
+    @GetMapping
+    public String getMe(){
+        return SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+    }
+
     @ResponseStatus(HttpStatus.OK)
     @PostMapping(value = "/login", produces = "text/plain")
     public String login() {
