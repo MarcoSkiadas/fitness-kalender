@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
-public record User(
+public record FiKaUser(
         @Id
         String id,
         String username,

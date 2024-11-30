@@ -30,6 +30,7 @@ export default function HomePage(props: Readonly<HomepageProps>) {
             }
             <button onClick={routeLogin}>Login</button>
             <button onClick={routeRegister}>Register</button>
+            <p>User: {props.user}</p>
         </div>
     )
 }

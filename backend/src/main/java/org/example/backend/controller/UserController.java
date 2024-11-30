@@ -1,7 +1,7 @@
 package org.example.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.model.User;
+import org.example.backend.model.FiKaUser;
 import org.example.backend.model.dto.RegisterUserDTO;
 import org.example.backend.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -17,13 +17,13 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{userId}")
-    public User getUserById(@PathVariable String userId) {
+    public FiKaUser getUserById(@PathVariable String userId) {
 
         return userService.getUserById(userId);
     }
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<User> getUser() {
+    public List<FiKaUser> getUser() {
 
         return userService.getUser();
     }
@@ -31,5 +31,10 @@ public class UserController {
     @PostMapping("/register")
     public void createUser(@RequestBody RegisterUserDTO newUser) {
         userService.createUser(newUser);
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping(value = "/login", produces = "text/plain")
+    public String login() {
+        return userService.login();
     }
 }

@@ -1,11 +1,13 @@
 package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
-import org.example.backend.model.User;
+import org.example.backend.model.dto.FiKaUserResponse;
 import org.example.backend.model.dto.RegisterUserDTO;
 import org.example.backend.repository.UserRepo;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +15,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -24,9 +27,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username)
+        FiKaUser fiKaUser = userRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("FiKaUser: " + username + " not Found!"));
+        return new User(fiKaUser.username(), fiKaUser.password(), Collections.emptyList());
+    }
+    public FiKaUserResponse getUserByUsername(String username) throws UsernameNotFoundException {
+        FiKaUser fiKaUser = userRepo.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User: " + username + " not Found!"));
-        return null;
+        return FiKaUserResponse.fromAppUser(fiKaUser);
     }
 
     public String login() {
@@ -36,12 +44,12 @@ public class UserService implements UserDetailsService {
                 .getName();
     }
 
-    public User getUserById(String userId) {
+    public FiKaUser getUserById(String userId) {
         return userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("FiKaUser not found"));
     }
 
-    public List<User> getUser() {
+    public List<FiKaUser> getUser() {
 
         return userRepo.findAll();
     }
@@ -50,8 +58,8 @@ public class UserService implements UserDetailsService {
         if (userRepo.findByUsername(registerUserDTO.username()).isPresent()) {
             throw new IllegalArgumentException("Username "+registerUserDTO.username()+" already exists!");
         }
-        User newUser = new User(idService.generateUUID(), registerUserDTO.username(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
-        userRepo.save(newUser);
+        FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
+        userRepo.save(newFiKaUser);
 
     }
 
