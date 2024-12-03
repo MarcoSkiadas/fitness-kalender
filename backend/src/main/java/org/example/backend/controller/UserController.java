@@ -32,9 +32,4 @@ public class UserController {
     public void createUser(@RequestBody RegisterUserDTO newUser) {
         userService.createUser(newUser);
     }
-    @ResponseStatus(HttpStatus.OK)
-    @PostMapping(value = "/login", produces = "text/plain")
-    public String login() {
-        return userService.login();
-    }
 }
