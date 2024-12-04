@@ -26,6 +26,16 @@ public record FiKaUserResponse(
     }
 
     @Override
+    public String toString() {
+        return "FiKaUserResponse{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", role='" + role + '\'' +
+                ", sets=" + Arrays.toString(sets) +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, username, role, Arrays.hashCode(sets));
     }
