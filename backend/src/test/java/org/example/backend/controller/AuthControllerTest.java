@@ -91,7 +91,7 @@ class AuthControllerTest {
 
     @Test
     void register_shouldReturnException_WhenCalledWithOldUser() throws Exception {
-        mockMvc.perform(post("/api/auth/register")
+        mockMvc.perform(post("/api/user/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                                                 {
