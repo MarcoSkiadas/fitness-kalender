@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.exeptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.model.dto.FiKaUserResponse;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,19 +44,9 @@ public class UserService implements UserDetailsService {
                 .getName();
     }
 
-    public FiKaUser getUserById(String userId) {
-        return userRepo.findById(userId)
-                .orElseThrow(() -> new RuntimeException("FiKaUser not found"));
-    }
-
-    public List<FiKaUser> getUser() {
-
-        return userRepo.findAll();
-    }
-
-    public void createUser(RegisterUserDTO registerUserDTO) {
+    public void createNewUser(RegisterUserDTO registerUserDTO) {
         if (userRepo.findByUsername(registerUserDTO.username()).isPresent()) {
-            throw new IllegalArgumentException("Username "+registerUserDTO.username()+" already exists!");
+            throw new InvalidIdException("Username "+registerUserDTO.username()+" already exists!");
         }
         FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
         userRepo.save(newFiKaUser);
