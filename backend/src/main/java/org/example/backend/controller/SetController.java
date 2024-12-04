@@ -19,11 +19,13 @@ public class SetController {
     public Set getSetById(@PathVariable String setId) {
     return setService.getSetById(setId);
 }
+
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<Set> getSet() {
         return setService.getSet();
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Set createSet(@RequestBody Set set) {

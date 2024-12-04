@@ -12,5 +12,4 @@ public record Set(
         SetExercise[] exercise,
         Date createdAt,
         Date updatedAt
-) {
-}
+) {}

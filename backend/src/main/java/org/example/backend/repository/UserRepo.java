@@ -1,7 +1,11 @@
 package org.example.backend.repository;
 
-import org.example.backend.model.User;
+import org.example.backend.model.FiKaUser;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepo extends MongoRepository<User, String> {
+import java.util.Optional;
+
+public interface UserRepo extends MongoRepository<FiKaUser, String> {
+
+    Optional<FiKaUser> findByUsername(String username);
 }
