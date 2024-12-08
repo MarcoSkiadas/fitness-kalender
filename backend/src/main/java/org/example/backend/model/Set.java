@@ -2,7 +2,7 @@ package org.example.backend.model;
 
 import org.springframework.data.annotation.Id;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public record Set(
         @Id
@@ -10,6 +10,6 @@ public record Set(
         String userId,
         String name,
         SetExercise[] exercise,
-        Date createdAt,
-        Date updatedAt
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {}

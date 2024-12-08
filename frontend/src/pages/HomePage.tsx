@@ -18,19 +18,23 @@ export default function HomePage(props: Readonly<HomepageProps>) {
     }
     return (
         <div>
+
             {props.user != undefined && (
                 <>
                     <button onClick={props.logout}>Logout</button>
                     <p>User: {props.user}</p></>
             )
             }
+            <h1>Willkommen zur FiKa-App</h1>
             {props.user == undefined && (
-                <p> Please Login or Register to proceed!</p>
+                <>
+                    <p> Please Login or Register to proceed!</p>
+                    <button onClick={routeLogin}>Login</button>
+                    <button onClick={routeRegister}>Register</button>
+                </>
             )
             }
-            <button onClick={routeLogin}>Login</button>
-            <button onClick={routeRegister}>Register</button>
-            <p>User: {props.user}</p>
+
         </div>
     )
 }

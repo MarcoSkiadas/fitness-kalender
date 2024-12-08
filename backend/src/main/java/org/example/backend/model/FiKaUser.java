@@ -1,11 +1,13 @@
 package org.example.backend.model;
 
+import lombok.With;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 
+@With
 public record FiKaUser(
         @Id
         String id,
