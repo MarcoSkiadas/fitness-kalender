@@ -16,6 +16,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
 
 @Service
@@ -50,6 +51,22 @@ public class UserService implements UserDetailsService {
         }
         FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
         userRepo.save(newFiKaUser);
+
+    }
+    public void addSetToUser(String userId, Set set) {
+        FiKaUser fikaUser = userRepo.findById(userId)
+                .orElseThrow(() -> new InvalidIdException("User: " + userId + " not Found!"));
+
+        // Bestehendes Set-Array erweitern
+        Set[] existingSets = fikaUser.sets();
+        Set[] updatedSets = Arrays.copyOf(existingSets, existingSets.length + 1);
+        updatedSets[existingSets.length] = set; // Neues Set am Ende hinzufügen
+
+        FiKaUser updatedUser = fikaUser.withSets(updatedSets);
+
+        userRepo.save(updatedUser);
+
+
 
     }
 

@@ -2,11 +2,9 @@ package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.backend.model.Set;
-import org.example.backend.model.SetExercise;
 import org.example.backend.repository.SetRepo;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,4 +28,5 @@ public class SetService {
     Set newSet = new Set(idService.generateUUID(), set.userId(), set.name(), set.exercise(), LocalDateTime.now(), LocalDateTime.now());
         return setRepo.save(newSet);
     }
+
 }
