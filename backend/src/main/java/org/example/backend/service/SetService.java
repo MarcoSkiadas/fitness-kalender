@@ -13,6 +13,7 @@ import java.util.List;
 public class SetService {
     private final SetRepo setRepo;
     private final IdService idService;
+    private final DateTimeService dateTimeService;
 
 
     public Set getSetById(String setId) {
@@ -25,7 +26,7 @@ public class SetService {
     }
 
     public Set createSet(Set set) {
-    Set newSet = new Set(idService.generateUUID(), set.userId(), set.name(), set.exercise(), LocalDateTime.now(), LocalDateTime.now());
+    Set newSet = new Set(idService.generateUUID(), set.userId(), set.name(), set.exercise(), dateTimeService.now(), dateTimeService.now());
         return setRepo.save(newSet);
     }
 

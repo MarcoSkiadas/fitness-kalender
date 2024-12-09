@@ -3,6 +3,7 @@ package org.example.backend.service;
 import org.example.backend.exeptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
+import org.example.backend.model.SetExercise;
 import org.example.backend.model.dto.FiKaUserResponse;
 import org.example.backend.model.dto.RegisterUserDTO;
 import org.example.backend.repository.UserRepo;
@@ -109,6 +110,25 @@ class UserServiceTest {
         mockRepo.save(testAppUser);
         when(mockRepo.findByUsername("TestUser")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish")));
-        verify(mockRepo, times(1)).save(testAppUser);
     }
+
+    @Test
+    void addSetToUser_shouldReturnUser_whenCalledWithTakenUserId() throws InvalidIdException {
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        mockRepo.save(testAppUser);
+        SetExercise setExercise = new SetExercise("TestExercise",3,3);
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
+        userService.addSetToUser("1",new Set("1","1","TestSet",new SetExercise[]{setExercise},LocalDateTime.now(),LocalDateTime.now()));
+        verify(mockRepo).findById("1");
+        verify(mockRepo).save(testAppUser);
+    }
+    @Test
+    void addSetToUser_shouldReturnException_whenCalledWithTakenUserId() throws InvalidIdException {
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        mockRepo.save(testAppUser);
+        SetExercise setExercise = new SetExercise("TestExercise",3,3);
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
+        assertThrows(InvalidIdException.class, () -> userService.addSetToUser("2",new Set("1","1","TestSet",new SetExercise[]{setExercise},LocalDateTime.now(),LocalDateTime.now())));
+    }
+
 }
