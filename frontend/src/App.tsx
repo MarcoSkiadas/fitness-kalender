@@ -9,6 +9,8 @@ import {User} from "./components/FiKaSchema.ts";
 import LoginPage from "./pages/LoginPage.tsx";
 import RegisterPage from "./pages/RegisterPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
+import SetPage from "./pages/SetPage.tsx";
+import WorkoutPage from "./pages/WorkoutPage.tsx";
 
 
 
@@ -55,6 +57,8 @@ function App() {
               <Route path={"/"}
                      element={<HomePage login={login} logout={logout}
                                         user={user?.username}/>}/>
+              <Route element={<SetPage user={user?.id}/>} path={"/set"}/>
+              <Route element={<WorkoutPage/>} path={"/workout"}/>
           </Routes>
           <ToastContainer/>
       </>

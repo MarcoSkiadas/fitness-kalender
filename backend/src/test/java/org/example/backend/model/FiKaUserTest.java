@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +11,7 @@ class FiKaUserTest {
 
     @Test
     void testEquals() {
-        Date date = new Date(2024, Calendar.JANUARY,12);
+        LocalDateTime date = LocalDateTime.now();
         LocalDateTime now = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
@@ -30,7 +28,7 @@ class FiKaUserTest {
 
     @Test
     void testHashCode() {
-        Date date = new Date(2024, Calendar.JANUARY,12);
+        LocalDateTime date = LocalDateTime.now();
         LocalDateTime now = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
@@ -48,7 +46,7 @@ class FiKaUserTest {
     @Test
     void testToString() {
 
-        Date date = new Date(2024, Calendar.JANUARY,12);
+        LocalDateTime date = LocalDateTime.now();
         LocalDateTime now = LocalDateTime.now();
 
         String id = "1";

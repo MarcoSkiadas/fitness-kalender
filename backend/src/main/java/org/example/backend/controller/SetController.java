@@ -3,6 +3,7 @@ package org.example.backend.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.model.Set;
 import org.example.backend.service.SetService;
+import org.example.backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SetController {
     private final SetService setService;
+    private final UserService userService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{setId}")
@@ -23,12 +25,15 @@ public class SetController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     public List<Set> getSet() {
+
         return setService.getSet();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Set createSet(@RequestBody Set set) {
+
+        userService.addSetToUser(set.userId(),set);
         return setService.createSet(set);
 }
 
