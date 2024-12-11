@@ -32,8 +32,6 @@ public class SetController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Set createSet(@RequestBody Set set) {
-
-        userService.addSetToUser(set.userId(),set);
         return setService.createSet(set);
 }
 

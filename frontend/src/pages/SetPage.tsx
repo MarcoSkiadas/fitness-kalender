@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Exercise} from "../components/FiKaSchema.ts";
+import {WorkoutExercise} from "../components/FiKaSchema.ts";
 import {toast} from "react-toastify";
 import axios from "axios";
 
@@ -12,6 +12,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
     const [exercises, setExercises] = useState([
         { exerciseName: "", defaultSets: "", defaultRepetitions: "" }]);
     const [setName, setSetName] = useState("");
+
 
     const addExercise = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault(); // Verhindert das Standard-Submit-Verhalten
@@ -34,7 +35,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
 
     const handleInputChange = (
         index: number,
-        field: keyof Exercise, // `field` ist ein Schlüssel aus dem Typ `Exercise`
+        field: keyof WorkoutExercise, // `field` ist ein Schlüssel aus dem Typ `Exercise`
         value: string
     ) => {
         const updatedExercises = [...exercises];
@@ -42,8 +43,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
         setExercises(updatedExercises);
     };
 
-    const handleSaveSet = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
+    const handleSaveSet = () => {
         axios.post(`/api/set`, {
             id:"",
             userId: props.user,
@@ -53,7 +53,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
             updatedAt: ""
         })
             .then(r => console.log(r.data))
-            .then(() =>toast.success(`Set ${setName} has been registered`))
+            .then(() => toast.success(`Set ${setName} has been registered`))
             .catch(() => toast.error(`Set ${setName} has not been registered`))
     }
 

@@ -1,7 +1,7 @@
 package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.exeptions.InvalidIdException;
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.model.dto.FiKaUserResponse;
@@ -65,8 +65,6 @@ public class UserService implements UserDetailsService {
         FiKaUser updatedUser = fikaUser.withSets(updatedSets);
 
         userRepo.save(updatedUser);
-
-
 
     }
 

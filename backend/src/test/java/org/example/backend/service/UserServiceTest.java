@@ -1,6 +1,6 @@
 package org.example.backend.service;
 
-import org.example.backend.exeptions.InvalidIdException;
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.model.SetExercise;
@@ -102,6 +102,7 @@ class UserServiceTest {
         mockRepo.save(testAppUser);
         userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish"));
         verify(mockRepo).save(testAppUser);
+
     }
 
     @Test
