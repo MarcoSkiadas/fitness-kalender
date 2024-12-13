@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {WorkoutExercise} from "../components/FiKaSchema.ts";
+import {Exercise} from "../components/FiKaSchema.ts";
 import {toast} from "react-toastify";
 import axios from "axios";
 
@@ -35,7 +35,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
 
     const handleInputChange = (
         index: number,
-        field: keyof WorkoutExercise, // `field` ist ein Schlüssel aus dem Typ `Exercise`
+        field: keyof Exercise, // `field` ist ein Schlüssel aus dem Typ `Exercise`
         value: string
     ) => {
         const updatedExercises = [...exercises];

@@ -9,20 +9,27 @@ export interface Set {
     id: string,
     userId: string,
     name: string,
-    exercise: WorkoutExercise[],
+    exercise: Exercise[],
     createAt: Date,
     updatedAt: Date
 }
-export interface WorkoutExercise {
+export interface Exercise {
     exerciseName: string,
     defaultSets: string,
     defaultRepetitions: string,
 }
+export interface WorkoutExercise {
+    exerciseName: string,
+    sets: number,
+    repetitions: number,
+    weight: number
+}
+
 export interface WorkoutSession {
     id: string,
     userId: string,
     workoutDate: Date,
-    exercise: WorkoutExercise,
+    exercise: Exercise,
     createAt: Date,
 }
 

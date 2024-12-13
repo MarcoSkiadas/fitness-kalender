@@ -53,19 +53,26 @@ public class UserService implements UserDetailsService {
         userRepo.save(newFiKaUser);
 
     }
-    public void addSetToUser(String userId, Set set) {
-        FiKaUser fikaUser = userRepo.findById(userId)
+    public FiKaUser getUserById(String userId) {
+        return userRepo.findById(userId)
                 .orElseThrow(() -> new InvalidIdException("User: " + userId + " not Found!"));
+    }
+
+    public void addSetToUser(String userId, Set set) {
+        FiKaUser fiKaUser = getUserById(userId);
 
         // Bestehendes Set-Array erweitern
-        Set[] existingSets = fikaUser.sets();
+        Set[] existingSets = fiKaUser.sets();
         Set[] updatedSets = Arrays.copyOf(existingSets, existingSets.length + 1);
         updatedSets[existingSets.length] = set; // Neues Set am Ende hinzufügen
 
-        FiKaUser updatedUser = fikaUser.withSets(updatedSets);
+        FiKaUser updatedUser = fiKaUser.withSets(updatedSets);
 
         userRepo.save(updatedUser);
 
+    }
+    public void saveUser(FiKaUser fiKaUser) {
+        userRepo.save(fiKaUser);
     }
 
 }

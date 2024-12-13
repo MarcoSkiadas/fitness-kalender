@@ -1,6 +1,7 @@
 package org.example.backend.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.service.SetService;
 import org.example.backend.service.UserService;
@@ -34,5 +35,10 @@ public class SetController {
     public Set createSet(@RequestBody Set set) {
         return setService.createSet(set);
 }
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{userId}/{setId}")
+    public void updateSet(@RequestBody Set updatedSet, @PathVariable String setId, @PathVariable String userId) {
+        setService.updateSet(updatedSet,setId,userId);
+    }
 
 }

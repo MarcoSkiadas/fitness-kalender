@@ -24,6 +24,7 @@ public class WorkoutSessionController {
     public List<WorkoutSession> getWorkoutSession() {
         return workoutSessionService.getWorkoutSession();
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public WorkoutSession createWorkoutSession(@RequestBody WorkoutSession workoutSession) {

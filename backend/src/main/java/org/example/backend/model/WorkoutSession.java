@@ -2,6 +2,7 @@ package org.example.backend.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public record WorkoutSession(
@@ -9,7 +10,7 @@ public record WorkoutSession(
         String id,
         String userId,
         Date workoutDate,
-        WorkoutExercise workoutExercise,
-        Date createdAt
+        WorkoutExercise[] workoutExercise,
+        LocalDateTime createdAt
 ) {
 }

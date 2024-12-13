@@ -114,7 +114,7 @@ class UserServiceTest {
     }
 
     @Test
-    void addSetToUser_shouldReturnUser_whenCalledWithTakenUserId() throws InvalidIdException {
+    void addSetToUser_shouldReturnUser_whenCalledWithWrongUserId() throws InvalidIdException {
         FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
         mockRepo.save(testAppUser);
         SetExercise setExercise = new SetExercise("TestExercise",3,3);
@@ -130,6 +130,22 @@ class UserServiceTest {
         SetExercise setExercise = new SetExercise("TestExercise",3,3);
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.addSetToUser("2",new Set("1","1","TestSet",new SetExercise[]{setExercise},LocalDateTime.now(),LocalDateTime.now())));
+    }
+    @Test
+    void getUserById_shouldReturnUser_whenCalledWithTakenUserId() throws InvalidIdException {
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        mockRepo.save(testAppUser);
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
+        FiKaUser actualUser = userService.getUserById("1");
+        assertEquals(actualUser,testAppUser);
+        verify(mockRepo).findById("1");
+    }
+    @Test
+    void getUserById_shouldReturnException_whenCalledWithWrongUserId() throws InvalidIdException {
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        mockRepo.save(testAppUser);
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
+        assertThrows(InvalidIdException.class, () -> userService.getUserById("2"));
     }
 
 }
