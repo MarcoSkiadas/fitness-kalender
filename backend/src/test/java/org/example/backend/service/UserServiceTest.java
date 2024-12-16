@@ -147,5 +147,13 @@ class UserServiceTest {
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.getUserById("2"));
     }
+    @Test
+    void saveUser_shouldReturnUser_whenSavedwithUser() throws InvalidIdException {
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        mockRepo.save(testAppUser);
+        userService.saveUser(testAppUser);
+        verify(mockRepo, times(2)).save(testAppUser);
+
+    }
 
 }

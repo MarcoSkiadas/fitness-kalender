@@ -14,7 +14,7 @@ public class WorkoutSessionService {
     private final IdService idService;
     private final DateTimeService dateTimeService;
 
-    public WorkoutSession getWorkoutSessionById(String setId) {
+    public WorkoutSession getWorkoutSessionById(String setId) throws RuntimeException {
         return workoutSessionRepo.findById(setId)
                 .orElseThrow(() -> new RuntimeException("WorkoutSession not found"));
     }

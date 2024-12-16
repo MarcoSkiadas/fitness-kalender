@@ -1,7 +1,6 @@
 package org.example.backend.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.service.SetService;
 import org.example.backend.service.UserService;
