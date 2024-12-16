@@ -12,4 +12,8 @@ public record Set(
         SetExercise[] exercise,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
-) {}
+) {
+        public String getSetId() {
+                return id;
+        }
+}

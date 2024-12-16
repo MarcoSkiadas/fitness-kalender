@@ -11,8 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkoutSessionService {
     private final WorkoutSessionRepo workoutSessionRepo;
+    private final IdService idService;
+    private final DateTimeService dateTimeService;
 
-    public WorkoutSession getWorkoutSessionById(String setId) {
+    public WorkoutSession getWorkoutSessionById(String setId) throws RuntimeException {
         return workoutSessionRepo.findById(setId)
                 .orElseThrow(() -> new RuntimeException("WorkoutSession not found"));
     }
@@ -22,6 +24,7 @@ public class WorkoutSessionService {
     }
 
     public WorkoutSession createWorkoutSession(WorkoutSession workoutSession) {
-        return workoutSessionRepo.save(workoutSession);
+        WorkoutSession newWorkoutSession = new WorkoutSession("W"+idService.generateUUID(), workoutSession.userId(), workoutSession.workoutDate(),workoutSession.workoutExercise(), dateTimeService.now());
+        return workoutSessionRepo.save(newWorkoutSession);
     }
 }

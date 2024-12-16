@@ -1,4 +1,4 @@
-package org.example.backend.exeptions;
+package org.example.backend.exceptions;
 
 import org.example.backend.model.dto.ErrorResponseDTO;
 import org.springframework.http.HttpStatus;

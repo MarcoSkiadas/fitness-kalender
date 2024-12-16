@@ -32,9 +32,12 @@ public class SetController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Set createSet(@RequestBody Set set) {
-
-        userService.addSetToUser(set.userId(),set);
         return setService.createSet(set);
 }
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{userId}/{setId}")
+    public void updateSet(@RequestBody Set updatedSet, @PathVariable String setId, @PathVariable String userId) {
+        setService.updateSet(updatedSet,setId,userId);
+    }
 
 }

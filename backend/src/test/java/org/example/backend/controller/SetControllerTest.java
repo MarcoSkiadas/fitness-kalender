@@ -43,11 +43,17 @@ class SetControllerTest {
     }
 
     @Test
-    void getSetById() {
+    void getSetById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/set/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void getSet() {
+    void getSet_shouldReturnAllSets() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/set")
+                .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -72,6 +78,29 @@ class SetControllerTest {
                 """)
                 .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+    @Test
+    void updateSet_shouldReturnSet_whenCalled() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/set/1/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                    {
+                        "id": "1",
+                        "userId": "1",
+                        "name": "TestSet",
+                        "exercise": [
+                        {
+                        "exerciseName": "TestExercise",
+                         "defaultSets": 3,
+                          "defaultRepetitions": 3
+                         }
+                                  ],
+                        "createdAt": "",
+                        "updatedAt": ""
+                    }
+                """)
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

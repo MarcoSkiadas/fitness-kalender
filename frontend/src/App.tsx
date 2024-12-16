@@ -58,7 +58,7 @@ function App() {
                      element={<HomePage login={login} logout={logout}
                                         user={user?.username}/>}/>
               <Route element={<SetPage user={user?.id}/>} path={"/set"}/>
-              <Route element={<WorkoutPage/>} path={"/workout"}/>
+              <Route element={<WorkoutPage user={user}/>} path={"/workout"}/>
           </Routes>
           <ToastContainer/>
       </>
