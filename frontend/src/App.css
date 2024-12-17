@@ -40,3 +40,118 @@
 .read-the-docs {
   color: #888;
 }
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%; /* Optional: Passen Sie die Höhe nach Bedarf an */
+  width: 100%;
+  gap: 20px; /* Abstand zwischen den Feldern */
+}
+
+.nav-box {
+  flex: 1; /* Gleiche Größe für beide Felder */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border: 2px solid #ccc; /* Rahmen */
+  border-radius: 8px; /* Abgerundete Ecken */
+  background-color: #f9f9f9; /* Hintergrundfarbe */
+  text-decoration: none; /* Link-Text ohne Unterstrich */
+  color: #333; /* Textfarbe */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-box:hover {
+  background-color: #e0e0e0; /* Hover-Effekt */
+  transform: scale(1.05); /* Leichter Zoom beim Hover */
+}
+
+.nav-box img {
+  max-width: 50px; /* Maximale Breite für das Bild */
+  margin-bottom: 10px; /* Abstand unter dem Bild */
+}
+
+.nav-box span {
+  font-size: 1.2em; /* Textgröße für die Beschriftung */
+  font-weight: bold;
+}
+/* Styling für den Set-Container */
+.set-container {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling für den Set-Namen */
+.set-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Container für die Übungen */
+.exercises-container {
+  margin-top: 10px;
+  padding-left: 10px;
+  border-left: 3px solid #91d5ff;
+}
+
+/* Styling für jede einzelne Übung */
+.exercise {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+/* Styling für die Übungsdetails */
+.exercise-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.exercise-sets,
+.exercise-reps {
+  font-size: 14px;
+  color: #555;
+  margin: 3px 0;
+}
+
+/* Hover-Effekt für den Set-Container */
+.set-container:hover {
+  background-color: #e6f7ff;
+  border-color: #91d5ff;
+  transition: 0.3s ease;
+}
+
+/* Optional: Responsive Styling */
+@media (max-width: 600px) {
+  .set-container {
+    padding: 10px;
+  }
+
+  .set-name {
+    font-size: 16px;
+  }
+
+  .exercise-name {
+    font-size: 14px;
+  }
+
+  .exercise-sets,
+  .exercise-reps {
+    font-size: 12px;
+  }
+}
