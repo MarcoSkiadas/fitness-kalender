@@ -10,11 +10,11 @@ export default function SetGetPage(props: Readonly<SetGetPageProps>) {
 
     return(
         <>
-        {userSets?.map(((Set,setIndex)=> (
+        {userSets?.map(((SetGet,setIndex)=> (
             <div key={setIndex} className="set-container">
                 <p className="set-name">
                     Set Name: {Set.name}</p>
-                <p>{Set.exercise.map((exercise, exerciseIndex) => (
+                <p>{SetGet.exercise.map((exercise, exerciseIndex) => (
                     <div key={exerciseIndex} className="exercise">
                         <p className="exercise-name">Exercise Name: {exercise.exerciseName}</p>
                         <p className="exercise-sets">Exercise Sets: {exercise.defaultSets}</p>
