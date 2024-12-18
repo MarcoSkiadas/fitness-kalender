@@ -32,8 +32,13 @@ export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
             .catch((r) => toast.error(r.data))
     }
 
+
+
     return(<>
-        {workoutSessions?.map((workoutSession, workoutSessionIndex) => (
+        {workoutSessions
+            ?.slice() // Erstellt eine Kopie, um die Originaldaten nicht zu mutieren
+            .sort((a, b) => new Date(b.workoutDate).getTime() - new Date(a.workoutDate).getTime())
+            .map((workoutSession, workoutSessionIndex) => (
             <div key={workoutSessionIndex} className="set-container">
             <p className="set-name">Workout Date: {formatDate(workoutSession.workoutDate)}</p>
 
