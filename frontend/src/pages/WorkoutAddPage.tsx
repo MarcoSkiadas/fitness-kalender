@@ -3,11 +3,11 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 
-type WorkoutPageProps = {
+type WorkoutAddPageProps = {
     user: User | null | undefined
 }
 
-export default function WorkoutPage(props: Readonly<WorkoutPageProps>) {
+export default function WorkoutAddPage(props: Readonly<WorkoutAddPageProps>) {
 
     const [selectedSetId, setSelectedSetId] = useState("")
     const availableSets = props.user?.sets ?? [];
@@ -92,6 +92,7 @@ export default function WorkoutPage(props: Readonly<WorkoutPageProps>) {
             <form>
                 <p>Please select your Set:</p>
                 <select onChange={event => setSelectedSetId(event.target.value)} defaultValue="">
+                    <option>--Please Select--</option>
                     {availableSets && availableSets.length > 0 ? (
                         availableSets.map((set) => (
                             <option key={set.id} value={set.id}>

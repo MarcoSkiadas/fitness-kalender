@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import {Exercise} from "../components/FiKaSchema.ts";
+import {Exercise, User} from "../components/FiKaSchema.ts";
 import {toast} from "react-toastify";
 import axios from "axios";
 
 type SetPageProps = {
-    user: string | undefined | null
+    user: User | undefined | null
 }
 
-export default function SetPage(props: Readonly<SetPageProps>) {
+export default function SetAddPage(props: Readonly<SetPageProps>) {
 
     const [exercises, setExercises] = useState([
         { exerciseName: "", defaultSets: "", defaultRepetitions: "" }]);
@@ -46,7 +46,7 @@ export default function SetPage(props: Readonly<SetPageProps>) {
     const handleSaveSet = () => {
         axios.post(`/api/set`, {
             id:"",
-            userId: props.user,
+            userId: props.user?.id,
             name: setName,
             exercise: exercises,
             createdAt: "",
