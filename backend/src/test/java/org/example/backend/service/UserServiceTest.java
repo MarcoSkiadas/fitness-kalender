@@ -107,9 +107,9 @@ class UserServiceTest {
 
     @Test
     void createNewUser_shouldReturnException_whenCalledWithTakenUsername() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "testuser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
         mockRepo.save(testAppUser);
-        when(mockRepo.findByUsername("TestUser")).thenReturn(Optional.of(testAppUser));
+        when(mockRepo.findByUsername("testuser")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish")));
     }
 

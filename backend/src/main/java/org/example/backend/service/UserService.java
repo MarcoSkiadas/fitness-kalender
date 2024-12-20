@@ -46,10 +46,10 @@ public class UserService implements UserDetailsService {
     }
 
     public void createNewUser(RegisterUserDTO registerUserDTO) {
-        if (userRepo.findByUsername(registerUserDTO.username()).isPresent()) {
+        if (userRepo.findByUsername(registerUserDTO.username().toLowerCase()).isPresent()) {
             throw new InvalidIdException("Username "+registerUserDTO.username()+" already exists!");
         }
-        FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
+        FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username().toLowerCase(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
         userRepo.save(newFiKaUser);
 
     }

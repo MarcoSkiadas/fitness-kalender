@@ -34,7 +34,7 @@ export default function LoginPage(props: Readonly<LoginPageProps>) {
             <div className="login-form-container">
                 <form onSubmit={submitLogin} className="login-form">
                     <input value={username} placeholder={"Please enter your Username"} type={"text"}
-                           onChange={e => setUsername(e.target.value)}
+                           onChange={e => setUsername(e.target.value.toLowerCase())}
                            className="login-input"/>
                     <input value={password} placeholder={"Please enter your Password"} type={"password"}
                            onChange={e => setPassword(e.target.value)}

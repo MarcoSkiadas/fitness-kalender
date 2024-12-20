@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
+import { Collapse } from "react-collapse";
 
 
 type WorkoutGetPageProps = {
@@ -12,6 +13,7 @@ type WorkoutGetPageProps = {
 export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
 
     const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([])
+    const [openSessions, setOpenSessions] = useState<Record<number, boolean>>({}); // Track the open state of each session
     const {id} = useParams<{ id: string }>();
 
     useEffect(() => {
@@ -32,25 +34,58 @@ export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
             .catch((r) => toast.error(r.data))
     }
 
-
+    const toggleSession = (index: number) => {
+        setOpenSessions((prevState) => ({
+            ...prevState,
+            [index]: !prevState[index],
+        }));
+    };
 
     return(<>
-        {workoutSessions
-            ?.slice() // Erstellt eine Kopie, um die Originaldaten nicht zu mutieren
-            .sort((a, b) => new Date(b.workoutDate).getTime() - new Date(a.workoutDate).getTime())
-            .map((workoutSession, workoutSessionIndex) => (
-            <div key={workoutSessionIndex} className="set-container">
-            <p className="set-name">Workout Date: {formatDate(workoutSession.workoutDate)}</p>
+        <div>
+            {workoutSessions
+                ?.slice() // Erstellt eine Kopie, um die Originaldaten nicht zu mutieren
+                .sort(
+                    (a, b) =>
+                        new Date(b.workoutDate).getTime() -
+                        new Date(a.workoutDate).getTime()
+                )
+                .map((workoutSession, workoutSessionIndex) => (
+                    <div key={workoutSessionIndex} className="set-container">
+                        <button
+                            onClick={() => toggleSession(workoutSessionIndex)}
+                            className="toggle-button"
+                        >
+                            {openSessions[workoutSessionIndex] ? "Hide Details" : "Show Details"}
+                        </button>
+                        <p className="set-name">
+                            Workout Date: {formatDate(workoutSession.workoutDate)}
+                        </p>
 
-                {workoutSession.workoutExercise.map((workoutExercise,workoutExerciseIndex) => (
-                            <div key={workoutExerciseIndex} className="exercise">
-                                <p className="exercise-name">Exercise Name: {workoutExercise.exerciseName}</p>
-                                <p className="exercise-sets">Exercise Sets: {workoutExercise.sets}</p>
-                                <p className="exercise-reps">Exercise Repetitions: {workoutExercise.repetitions}</p>
-                                <p className="exercise-reps">Exercise Weight: {workoutExercise.weight}</p>
+                        <Collapse isOpened={openSessions[workoutSessionIndex]}>
+                            <div className="exercise-list">
+                                {workoutSession.workoutExercise.map(
+                                    (workoutExercise, workoutExerciseIndex) => (
+                                        <div key={workoutExerciseIndex} className="exercise">
+                                            <p className="exercise-name">
+                                                Exercise Name: {workoutExercise.exerciseName}
+                                            </p>
+                                            <p className="exercise-sets">
+                                                Exercise Sets: {workoutExercise.sets}
+                                            </p>
+                                            <p className="exercise-reps">
+                                                Exercise Repetitions: {workoutExercise.repetitions}
+                                            </p>
+                                            <p className="exercise-weight">
+                                                Exercise Weight: {workoutExercise.weight}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
                             </div>
-                        ))}
-                        </div>
+                        </Collapse>
+                    </div>
                 ))}
-            </>);
-        }
+        </div>
+    </>);
+}
