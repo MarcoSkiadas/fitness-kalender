@@ -29,7 +29,8 @@ export interface WorkoutSession {
     id: string,
     userId: string,
     workoutDate: Date,
-    exercise: Exercise,
+    workoutExercise: WorkoutExercise[],
     createAt: Date,
 }
+
 

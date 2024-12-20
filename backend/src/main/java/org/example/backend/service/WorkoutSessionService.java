@@ -27,4 +27,8 @@ public class WorkoutSessionService {
         WorkoutSession newWorkoutSession = new WorkoutSession("W"+idService.generateUUID(), workoutSession.userId(), workoutSession.workoutDate(),workoutSession.workoutExercise(), dateTimeService.now());
         return workoutSessionRepo.save(newWorkoutSession);
     }
+
+    public List<WorkoutSession> getWorkoutSessionByUserId(String userId) {
+        return workoutSessionRepo.findByUserId(userId);
+    }
 }

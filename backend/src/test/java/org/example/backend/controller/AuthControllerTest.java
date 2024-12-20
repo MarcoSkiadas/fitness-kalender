@@ -34,7 +34,7 @@ class AuthControllerTest {
 
     @BeforeEach
     void setUp() {
-        userRepo.save(new FiKaUser("1", "testUser", "", "USER", LocalDateTime.now(),new Set[0]));
+        userRepo.save(new FiKaUser("1", "testuser", "", "USER", LocalDateTime.now(),new Set[0]));
     }
 
     @Test
@@ -54,16 +54,16 @@ class AuthControllerTest {
                                 .claim("sub", "1"))).with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("testUser"));
+                .andExpect(jsonPath("$.username").value("testuser"));
     }
 
     @Test
-    @WithMockUser(username = "testUser")
+    @WithMockUser(username = "testuser")
     void authControllerGetMeLoggedIn2() throws Exception {
         mockMvc.perform(get("/api/auth/me").with(csrf())
                 )
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("testUser"));
+                .andExpect(jsonPath("$.username").value("testuser"));
     }
 
     @Test
@@ -95,7 +95,7 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                                                 {
-                                                                  "username":"testUser",
+                                                                  "username":"testuser",
                                                                   "password":"testPassword"
                                                                 }
                                 """)

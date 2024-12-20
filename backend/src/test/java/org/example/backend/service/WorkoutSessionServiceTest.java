@@ -76,4 +76,22 @@ class WorkoutSessionServiceTest {
         verify(mockRepo).save(expectedWorkoutSession);
 
     }
+    @Test
+    void getWorkoutSessionById_shouldReturnWorkoutSession_whenCalled() {
+        Date date = new Date();
+        LocalDateTime now = LocalDateTime.now();
+        WorkoutExercise[] workoutExercises = new WorkoutExercise[]{new WorkoutExercise("workoutExercise1", 2,3,3), new WorkoutExercise("workoutExercise2", 3,3,3)};
+        List<WorkoutSession> workoutSessions = new ArrayList<>();
+        WorkoutSession workoutSession1 = new WorkoutSession("1","1",date,workoutExercises,now);
+        WorkoutSession workoutSession2 = new WorkoutSession("1","1",date,workoutExercises,now);
+        workoutSessions.add(workoutSession1);
+        workoutSessions.add(workoutSession2);
+        mockRepo.save(workoutSession1);
+        mockRepo.save(workoutSession2);
+        when(mockRepo.findByUserId("1")).thenReturn((workoutSessions));
+        List<WorkoutSession> actualWorkoutSession = workoutSessionService.getWorkoutSessionByUserId("1");
+        assertEquals(workoutSessions, actualWorkoutSession);
+        verify(mockRepo).findByUserId("1");
+
+    }
 }
