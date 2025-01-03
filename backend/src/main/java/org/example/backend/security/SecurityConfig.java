@@ -1,6 +1,7 @@
 package org.example.backend.security;
 
 import org.example.backend.model.FiKaUser;
+import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
 import org.example.backend.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,7 +70,7 @@ public class SecurityConfig {
 
             FiKaUser appUser = userRepo.findById(oAuth2User.getName())
                     .orElseGet(() -> {
-                        FiKaUser newAppUser = new FiKaUser(oAuth2User.getName(), oAuth2User.getAttributes().get("login").toString(), "", "USER", LocalDateTime.now(), new Set[0]);
+                        FiKaUser newAppUser = new FiKaUser(oAuth2User.getName(), oAuth2User.getAttributes().get("login").toString(), "", "USER", LocalDateTime.now(), new Set[0], new Friend[0]);
 
                         return userRepo.save(newAppUser);
                     });

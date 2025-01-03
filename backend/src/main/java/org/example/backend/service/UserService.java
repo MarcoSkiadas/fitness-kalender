@@ -3,6 +3,7 @@ package org.example.backend.service;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
+import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
 import org.example.backend.model.dto.FiKaUserResponse;
 import org.example.backend.model.dto.RegisterUserDTO;
@@ -49,7 +50,7 @@ public class UserService implements UserDetailsService {
         if (userRepo.findByUsername(registerUserDTO.username().toLowerCase()).isPresent()) {
             throw new InvalidIdException("Username "+registerUserDTO.username()+" already exists!");
         }
-        FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username().toLowerCase(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0]);
+        FiKaUser newFiKaUser = new FiKaUser(idService.generateUUID(), registerUserDTO.username().toLowerCase(), encoder.encode(registerUserDTO.password()),"USER", LocalDateTime.now(), new Set[0], new Friend[0]);
         userRepo.save(newFiKaUser);
 
     }
@@ -75,4 +76,25 @@ public class UserService implements UserDetailsService {
         userRepo.save(fiKaUser);
     }
 
+    public void addNewFriend(String friendId, String userId) throws InvalidIdException {
+        if (userRepo.findById(userId).isEmpty()) {
+            throw new InvalidIdException("User: " + userId + " not Found!");
+        }
+        if (userRepo.findById(friendId).isEmpty()) {
+            throw new InvalidIdException("Friend with Id: " + friendId + " not Found!");
+        }
+        FiKaUser fiKaUser = getUserById(userId);
+        FiKaUser newFriendFikaUser = getUserById(friendId);
+        Friend newFriend = new Friend(friendId,newFriendFikaUser.username());
+        for (Friend friend : fiKaUser.friends()) {
+            if (friend.equals(newFriend)) {
+                throw new InvalidIdException("Friend with Id: " + friendId + " already exists!");
+            }}
+        Friend[] actualFriends = fiKaUser.friends();
+        Friend[] newFriends = new Friend[actualFriends.length + 1];
+        System.arraycopy(actualFriends, 0, newFriends, 0, actualFriends.length);
+        newFriends[actualFriends.length] = newFriend;
+        fiKaUser = fiKaUser.withFriends(newFriends);
+        userRepo.save(fiKaUser);
+    }
 }

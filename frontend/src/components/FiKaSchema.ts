@@ -4,6 +4,7 @@ export interface User {
     role: string,
     createDate: Date,
     sets: Set[]
+    friends: Friend[]
 }
 export interface Set {
     id: string,
@@ -31,6 +32,10 @@ export interface WorkoutSession {
     workoutDate: Date,
     workoutExercise: WorkoutExercise[],
     createAt: Date,
+}
+export interface Friend {
+    id: string,
+    username: string,
 }
 
 
