@@ -1,6 +1,7 @@
 package org.example.backend.controller;
 
 import org.example.backend.model.FiKaUser;
+import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
 import org.example.backend.repository.UserRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ class AuthControllerTest {
 
     @BeforeEach
     void setUp() {
-        userRepo.save(new FiKaUser("1", "testuser", "", "USER", LocalDateTime.now(),new Set[0]));
+        userRepo.save(new FiKaUser("1", "testuser", "", "USER", LocalDateTime.now(),new Set[0], new Friend[0]));
     }
 
     @Test

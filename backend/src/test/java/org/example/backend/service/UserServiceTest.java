@@ -2,6 +2,7 @@ package org.example.backend.service;
 
 import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
+import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
 import org.example.backend.model.SetExercise;
 import org.example.backend.model.dto.FiKaUserResponse;
@@ -36,13 +37,13 @@ class UserServiceTest {
     void setUp() {
         String userId = "1";
         String password = "swordfish";
-        FiKaUser fiKaTestUser = new FiKaUser(userId,"TestUser",password,"User", LocalDateTime.now(),new Set[0]);
+        FiKaUser fiKaTestUser = new FiKaUser(userId,"TestUser",password,"User", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(fiKaTestUser);
     }
 
     @Test
     void loadUserByUsername_shouldReturnUser_whenCalled() throws UsernameNotFoundException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         UserDetails expectedUser = new User(testAppUser.username(), testAppUser.password(), Collections.emptyList());
         when(mockRepo.findByUsername("TestUser")).thenReturn(Optional.of(testAppUser));
@@ -61,9 +62,9 @@ class UserServiceTest {
 
     @Test
     void getUserByUsername_shouldReturnUser_whenCalled() throws UsernameNotFoundException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
-        FiKaUserResponse expectedFiKaUser = new FiKaUserResponse("1", "TestUser", "USER", new Set[0]);
+        FiKaUserResponse expectedFiKaUser = new FiKaUserResponse("1", "TestUser", "USER", new Set[0], new Friend[0]);
         when(mockRepo.findByUsername("TestUser")).thenReturn(Optional.of(testAppUser));
         FiKaUserResponse actualUser = userService.getUserByUsername("TestUser");
         userService.loadUserByUsername("TestUser");
@@ -98,7 +99,7 @@ class UserServiceTest {
 
     @Test
     void createNewUser_shouldReturnUser_whenCalled() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish"));
         verify(mockRepo).save(testAppUser);
@@ -107,7 +108,7 @@ class UserServiceTest {
 
     @Test
     void createNewUser_shouldReturnException_whenCalledWithTakenUsername() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "testuser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "testuser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         when(mockRepo.findByUsername("testuser")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish")));
@@ -115,7 +116,7 @@ class UserServiceTest {
 
     @Test
     void addSetToUser_shouldReturnUser_whenCalledWithWrongUserId() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         SetExercise setExercise = new SetExercise("TestExercise",3,3);
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
@@ -125,7 +126,7 @@ class UserServiceTest {
     }
     @Test
     void addSetToUser_shouldReturnException_whenCalledWithTakenUserId() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         SetExercise setExercise = new SetExercise("TestExercise",3,3);
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
@@ -133,7 +134,7 @@ class UserServiceTest {
     }
     @Test
     void getUserById_shouldReturnUser_whenCalledWithTakenUserId() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
         FiKaUser actualUser = userService.getUserById("1");
@@ -142,14 +143,14 @@ class UserServiceTest {
     }
     @Test
     void getUserById_shouldReturnException_whenCalledWithWrongUserId() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         when(mockRepo.findById("1")).thenReturn(Optional.of(testAppUser));
         assertThrows(InvalidIdException.class, () -> userService.getUserById("2"));
     }
     @Test
     void saveUser_shouldReturnUser_whenSavedwithUser() throws InvalidIdException {
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         userService.saveUser(testAppUser);
         verify(mockRepo, times(2)).save(testAppUser);
