@@ -22,6 +22,10 @@ export default function Navigation(props: Readonly<NavigationProps>) {
                             <img src="https://img.icons8.com/?size=100&id=v0g0392df6zn&format=png&color=000000" alt="Set"/>
                             <span>Workout</span>
                         </Link>
+                        <Link to="/Friends" className="nav-link">
+                            <img src="https://img.icons8.com/?size=100&id=rxyY2JYOueqn&format=png&color=000000" alt="Friends"/>
+                            <span>Friends</span>
+                        </Link>
 
                     </>
                 )}

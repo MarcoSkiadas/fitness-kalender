@@ -15,19 +15,20 @@ public record FiKaUser(
         String password,
         String role,
         LocalDateTime createDate,
-        Set[] sets
+        Set[] sets,
+        Friend[] friends
 ) {
         @Override
         public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
                 FiKaUser fiKaUser = (FiKaUser) o;
-                return Objects.equals(id, fiKaUser.id) && Objects.deepEquals(sets, fiKaUser.sets) && Objects.equals(role, fiKaUser.role) && Objects.equals(username, fiKaUser.username) && Objects.equals(password, fiKaUser.password) && Objects.equals(createDate, fiKaUser.createDate);
+                return Objects.equals(id, fiKaUser.id) && Objects.deepEquals(sets, fiKaUser.sets) && Objects.equals(role, fiKaUser.role) && Objects.equals(username, fiKaUser.username) && Objects.equals(password, fiKaUser.password) && Objects.equals(createDate, fiKaUser.createDate) && Arrays.deepEquals(friends, fiKaUser.friends);
         }
 
         @Override
         public int hashCode() {
-                return Objects.hash(id, username, password, role, createDate, Arrays.hashCode(sets));
+                return Objects.hash(id, username, password, role, createDate, Arrays.hashCode(sets), Arrays.hashCode(friends));
         }
 
         @Override
@@ -39,6 +40,7 @@ public record FiKaUser(
                         ", role='" + role + '\'' +
                         ", createDate=" + createDate +
                         ", sets=" + Arrays.toString(sets) +
+                        ", friends=" + Arrays.toString(friends) +
                         '}';
         }
 }

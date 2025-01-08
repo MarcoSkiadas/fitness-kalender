@@ -15,6 +15,9 @@ import WorkoutGetPage from "./pages/WorkoutGetPage.tsx";
 import WorkoutHomePage from "./pages/WorkoutHomePage.tsx";
 import SetHomePage from "./pages/SetHomePage.tsx";
 import SetGetPage from "./pages/SetGetPage.tsx";
+import FriendsHomePage from "./pages/FriendsHomePage.tsx";
+import FriendsAddPage from "./pages/FriendsAddPage.tsx";
+import FriendsGetPage from "./pages/FriendsGetPage.tsx";
 
 function App() {
 
@@ -66,6 +69,9 @@ function App() {
               <Route element={<WorkoutHomePage/>} path={"/workout"}/>
               <Route element={<WorkoutAddPage user={user}/>} path={"/workout/add"}/>
               <Route element={<WorkoutGetPage user={user}/>} path={"/workout/see"}/>
+              <Route element={<FriendsHomePage/>} path={"/friends"}/>
+              <Route element={<FriendsAddPage user={user}/>} path={"/friends/add"}/>
+              <Route element={<FriendsGetPage user={user}/>} path={"/friends/see"}/>
           </Routes>
           <ToastContainer/>
       </>

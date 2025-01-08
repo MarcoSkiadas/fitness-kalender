@@ -17,4 +17,10 @@ public class UserController {
     public void createUser(@RequestBody RegisterUserDTO newUser) {
         userService.createNewUser(newUser);
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/friend/{userId}/{friendId}")
+    public void addFriend(@PathVariable String friendId, @PathVariable String userId) {
+        userService.addNewFriend(friendId,userId);
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import org.example.backend.model.FiKaUser;
+import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
 import org.example.backend.model.SetExercise;
 import org.example.backend.repository.SetRepo;
@@ -64,7 +65,7 @@ class SetServiceTest {
         SetExercise setExercise = new SetExercise("TestExercise",3,3);
         Set testSet = new Set("1","1","TestSet",new SetExercise[]{setExercise},now,now);
         Set newSet = new Set(null,"1","TestSet",new SetExercise[]{setExercise},null,null);
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0]);
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0],new Friend[0]);
         mockUserRepo.save(testAppUser);
         mockRepo.save(testSet);
         when(mockIdService.generateUUID()).thenReturn("1");
@@ -82,7 +83,7 @@ class SetServiceTest {
 
         Set testSet = new Set("1","1","TestSet",new SetExercise[]{setExercise1},now,now);
         Set newSet = new Set("2","1","TestSet",new SetExercise[]{setExercise2},null,null);
-        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[]{testSet,newSet});
+        FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[]{testSet,newSet},new Friend[0]);
         mockUserRepo.save(testAppUser);
         mockRepo.save(testSet);
         when(mockRepo.save(any(Set.class))).thenReturn(testSet);
