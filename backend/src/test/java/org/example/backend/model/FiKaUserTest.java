@@ -1,5 +1,6 @@
 package org.example.backend.model;
 
+import org.example.backend.model.dto.FiKaUserResponse;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,13 +16,15 @@ class FiKaUserTest {
         LocalDateTime now = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
+        Friend[] friends1 = new Friend[]{new Friend("1","TestFriend1"),new Friend("2","TestFriend2")};
+        Friend[] friends2 = new Friend[]{new Friend("3","TestFriend1"),new Friend("2","TestFriend2")};
 
-        FiKaUser fiKaUser1 = new FiKaUser("1","Testuser","swordfish","User",now,sets1, new Friend[0]);
-        FiKaUser fiKaUser2 = new FiKaUser("1","Testuser","swordfish","User",now,sets1, new Friend[0]);
+        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
+        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
 
         assertEquals(fiKaUser1, fiKaUser2);
 
-        FiKaUser fiKaUser3 = new FiKaUser("1","Testuser","swordfish","User",now,sets2, new Friend[0]);
+        FiKaUser fiKaUser3 = new FiKaUser("1","Testuser","swordfish","User",now,sets2, friends2);
 
         assertNotEquals(fiKaUser2, fiKaUser3);
     }
@@ -32,13 +35,15 @@ class FiKaUserTest {
         LocalDateTime now = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
+        Friend[] friends1 = new Friend[]{new Friend("1","TestFriend1"),new Friend("2","TestFriend2")};
+        Friend[] friends2 = new Friend[]{new Friend("3","TestFriend1"),new Friend("2","TestFriend2")};
 
-        FiKaUser fiKaUser1 = new FiKaUser("1","Testuser","swordfish","User",now,sets1, new Friend[0]);
-        FiKaUser fiKaUser2 = new FiKaUser("1","Testuser","swordfish","User",now,sets1, new Friend[0]);
+        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
+        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
 
         assertEquals(fiKaUser1.hashCode(), fiKaUser2.hashCode());
 
-        FiKaUser fiKaUser3 = new FiKaUser("1","Testuser","swordfish","User",now,sets2, new Friend[0]);
+        FiKaUser fiKaUser3 = new FiKaUser("1","Testuser","swordfish","User",now,sets2, friends2);
 
         assertNotEquals(fiKaUser1.hashCode(), fiKaUser3.hashCode());
     }

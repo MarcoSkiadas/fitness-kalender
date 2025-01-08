@@ -21,13 +21,15 @@ class FiKaUserResponseTest {
         LocalDateTime date = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
+        Friend[] friends1 = new Friend[]{new Friend("1","TestFriend1"),new Friend("2","TestFriend2")};
+        Friend[] friends2 = new Friend[]{new Friend("3","TestFriend1"),new Friend("2","TestFriend2")};
 
-        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, new Friend[0]);
-        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, new Friend[0]);
+        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
+        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
 
         assertEquals(fiKaUser1, fiKaUser2);
 
-        FiKaUserResponse fiKaUser3 = new FiKaUserResponse("1","Testuser","User",sets2, new Friend[0]);
+        FiKaUserResponse fiKaUser3 = new FiKaUserResponse("1","Testuser","User",sets2, friends2);
 
         assertNotEquals(fiKaUser2, fiKaUser3);
     }
@@ -37,13 +39,15 @@ class FiKaUserResponseTest {
         LocalDateTime date = LocalDateTime.now();
         Set[] sets1 = new Set[]{new Set("1", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
         Set[] sets2 = new Set[]{new Set("3", "2","Test1",new SetExercise[0], date,date), new Set("2", "3","Test2",new SetExercise[0], date,date)};
+        Friend[] friends1 = new Friend[]{new Friend("1","TestFriend1"),new Friend("2","TestFriend2")};
+        Friend[] friends2 = new Friend[]{new Friend("3","TestFriend1"),new Friend("2","TestFriend2")};
 
-        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, new Friend[0]);
-        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, new Friend[0]);
+        FiKaUserResponse fiKaUser1 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
+        FiKaUserResponse fiKaUser2 = new FiKaUserResponse("1","Testuser","User",sets1, friends1);
 
         assertEquals(fiKaUser1.hashCode(), fiKaUser2.hashCode());
 
-        FiKaUserResponse fiKaUser3 = new FiKaUserResponse("1","Testuser","User",sets2, new Friend[0]);
+        FiKaUserResponse fiKaUser3 = new FiKaUserResponse("1","Testuser","User",sets2, friends2);
 
         assertNotEquals(fiKaUser1.hashCode(), fiKaUser3.hashCode());
     }

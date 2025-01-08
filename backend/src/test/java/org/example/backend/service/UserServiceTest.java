@@ -149,12 +149,48 @@ class UserServiceTest {
         assertThrows(InvalidIdException.class, () -> userService.getUserById("2"));
     }
     @Test
-    void saveUser_shouldReturnUser_whenSavedwithUser() throws InvalidIdException {
+    void saveUser_shouldReturnUser_whenSavedWithUser() throws InvalidIdException {
         FiKaUser testAppUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
         userService.saveUser(testAppUser);
         verify(mockRepo, times(2)).save(testAppUser);
 
+    }
+    @Test
+    void addNewFriend_shouldReturnException_whenWrongUser() throws InvalidIdException {
+        assertThrows(InvalidIdException.class, () -> userService.addNewFriend("1","2"));
+    }
+    @Test
+    void addNewFriend_shouldReturnException_whenWrongFriend() throws InvalidIdException {
+        FiKaUser testFiKaUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
+        mockRepo.save(testFiKaUser);
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testFiKaUser));
+        assertThrows(InvalidIdException.class, () -> userService.addNewFriend("2","1"));
+    }
+    @Test
+    void addNewFriend_shouldReturnException_whenFriendAlreadyExists() throws InvalidIdException {
+        Friend[] friends = new Friend[]{new Friend("2","TestUser")};
+        FiKaUser testFriendUser = new FiKaUser("2", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
+        FiKaUser testFiKaUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], friends);
+        mockRepo.save(testFiKaUser);
+        mockRepo.save(testFriendUser);
+        when(mockRepo.findById("2")).thenReturn(Optional.of(testFriendUser));
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testFiKaUser));
+        assertThrows(InvalidIdException.class, () -> userService.addNewFriend("2","1"));
+    }
+    @Test
+    void addNewFriend_shouldSaveFriend_whenCalledCorrectly() throws InvalidIdException {
+        FiKaUser testFriendUser = new FiKaUser("2", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
+        FiKaUser testFiKaUser = new FiKaUser("1", "TestUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
+        mockRepo.save(testFiKaUser);
+        mockRepo.save(testFriendUser);
+        when(mockRepo.findById("2")).thenReturn(Optional.of(testFriendUser));
+        when(mockRepo.findById("1")).thenReturn(Optional.of(testFiKaUser));
+        when(mockRepo.save(testFiKaUser)).thenReturn(testFiKaUser);
+        userService.addNewFriend("2","1");
+        verify(mockRepo).save(testFiKaUser);
+        verify(mockRepo,times(2)).findById("1");
+        verify(mockRepo,times(2)).findById("2");
     }
 
 }
