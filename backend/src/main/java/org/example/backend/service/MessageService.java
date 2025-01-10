@@ -22,6 +22,9 @@ public class MessageService {
         return newMessage;
     }
     public List<Message> getMessagesForUser(String recipientId) {
+        if (messageRepo.findByRecipientId(recipientId).isEmpty()) {
+            throw new InvalidIdException("Recipient Id: "+recipientId+" has not been found");
+        }
         return messageRepo.findByRecipientId(recipientId);
     }
 
