@@ -80,6 +80,23 @@
   font-size: 1.2em; /* Textgröße für die Beschriftung */
   font-weight: bold;
 }
+.nav-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.nav-link .badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
 /* Styling für den Set-Container */
 .set-container {
   margin-bottom: 20px;
@@ -160,4 +177,51 @@
   font-weight: bold;
   color: #333;
   margin-bottom: 10px;
+}
+.message-input {
+  width: calc(100% - 40px); /* Gesamtbreite minus Padding */
+  padding: 14px 20px; /* Mehr Platz innen */
+  margin: 10px 20px; /* Abstand von allen Seiten */
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  white-space: normal; /* Erlaubt Umbrüche innerhalb des Texts */
+  overflow-wrap: break-word; /* Bricht lange Wörter um */
+  word-break: break-word; /* Unterstützung für ältere Browser */
+}
+
+.message-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+.message-input::placeholder {
+  color: #aaa;
+}
+
+/* Layout-Anpassungen für größere Größe */
+@media (min-width: 768px) {
+  .message-input {
+    width: calc(100% - 80px); /* Mehr Platz für größere Bildschirme */
+    padding: 16px 24px; /* Größere Höhe */
+  }
+}
+
+/* Layout bei kleineren Bildschirmen */
+@media (max-width: 767px) {
+  .message-input {
+    width: 100%; /* Volle Breite */
+    margin: 10px 0; /* Abstand oben und unten */
+  }
+}
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

@@ -18,6 +18,9 @@ import SetGetPage from "./pages/SetGetPage.tsx";
 import FriendsHomePage from "./pages/FriendsHomePage.tsx";
 import FriendsAddPage from "./pages/FriendsAddPage.tsx";
 import FriendsGetPage from "./pages/FriendsGetPage.tsx";
+import MessengerHomePage from "./pages/MessengerHomePage.tsx";
+import MessengerAddPage from "./pages/MessengerAddPage.tsx";
+import MessengerGetPage from "./pages/MessengerGetPage.tsx";
 
 function App() {
 
@@ -72,6 +75,10 @@ function App() {
               <Route element={<FriendsHomePage/>} path={"/friends"}/>
               <Route element={<FriendsAddPage user={user}/>} path={"/friends/add"}/>
               <Route element={<FriendsGetPage user={user}/>} path={"/friends/see"}/>
+              <Route element={<MessengerHomePage/>} path={"/messenger"}/>
+              <Route element={<MessengerAddPage user={user}/>} path={"/messenger/add"}/>
+              <Route element={<MessengerGetPage user={user}/>} path={"/messenger/see"}/>
+
           </Routes>
           <ToastContainer/>
       </>

@@ -4,7 +4,10 @@ type NavigationProps = {
     currentRole: string | undefined
 }
 export default function Navigation(props: Readonly<NavigationProps>) {
-
+    /*
+    const [newMessages, setNewMessages] = useState(0);
+    {newMessages > 0 && <span className="badge">{newMessages}</span>} //Spätere funktion für NavMessenger
+*/
     return (
         <>
             <div className="navigation">
@@ -25,6 +28,10 @@ export default function Navigation(props: Readonly<NavigationProps>) {
                         <Link to="/Friends" className="nav-link">
                             <img src="https://img.icons8.com/?size=100&id=rxyY2JYOueqn&format=png&color=000000" alt="Friends"/>
                             <span>Friends</span>
+                        </Link>
+                        <Link to="/Messenger" className="nav-link">
+                            <img src="https://img.icons8.com/?size=100&id=oDrvIzA6u0Wu&format=png&color=000000" alt="Messenger"/>
+                            <span>Messenger</span>
                         </Link>
 
                     </>
