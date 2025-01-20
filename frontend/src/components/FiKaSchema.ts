@@ -37,5 +37,20 @@ export interface Friend {
     id: string,
     username: string,
 }
+export interface Message {
+    id: string,
+    recipientId: string,
+    senderId: string,
+    messageContent: string,
+    accepted: boolean,
+    read: boolean,
+    messageType: MessageType,
+    createdAt: Date
+}
+export enum MessageType {
+    REQUEST = "REQUEST",
+    MESSAGE = "MESSAGE",
+    ANNOUNCEMENT = "ANNOUNCEMENT",
+}
 
 

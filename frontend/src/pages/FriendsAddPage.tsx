@@ -25,7 +25,7 @@ export default function FriendsAddPage(props: Readonly<FriendsAddPageProps>) {
                 <label htmlFor={`friendId`}>Insert Friend-Id: </label>
                 <form>
                     <input value={friendId}
-                           placeholder="Please enter the If of your Friend"
+                           placeholder="Please enter the Id of your Friend"
                            type="text"
                            onChange={(e) =>
                                setFriendId(e.target.value)
