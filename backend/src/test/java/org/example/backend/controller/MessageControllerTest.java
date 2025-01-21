@@ -112,4 +112,10 @@ class MessageControllerTest {
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.createdAt").isNotEmpty());
     }
+    @Test
+    void deleteMessage_shouldDeleteMessage_whenCalledWithCorrectMessageId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/message/delete/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

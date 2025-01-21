@@ -69,14 +69,28 @@ class MessageServiceTest {
         Message message = new Message("1","1","2","test",false,false, MessageType.MESSAGE,now);
         Message expectedMessage = new Message("1","1","2","test",true,false, MessageType.MESSAGE,now);
         when(mockRepo.findById("1")).thenReturn(Optional.of(message));
+        when(mockRepo.save(expectedMessage)).thenReturn(expectedMessage);
         message = messageService.acceptMessage("1");
         assertEquals(expectedMessage, message);
         verify(mockRepo, times(1)).findById("1");
+        verify(mockRepo, times(1)).save(expectedMessage);
     }
     @Test
     void acceptMessage_shouldReturnException_whenCalledWithWrongId() {
       when(mockRepo.findById("1")).thenReturn(Optional.empty());
       assertThrows(InvalidIdException.class, () -> messageService.acceptMessage("1"));
+    }
+    @Test
+    void deleteMessage_shouldReturnTrue_whenCalled() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.TRUE);
+        messageService.deleteMessage("1");
+        verify(mockRepo, times(1)).existsById("1");
+        verify(mockRepo, times(1)).deleteById("1");
+    }
+    @Test
+    void deleteMessage_shouldReturnException_whenCalledWithWrongId() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.FALSE);
+        assertThrows(InvalidIdException.class, () -> messageService.acceptMessage("1"));
     }
 
 }
