@@ -30,9 +30,15 @@ public class MessageService {
 
     public Message acceptMessage(String messageId) {
         Message message = messageRepo.findById(messageId).orElseThrow(() -> new InvalidIdException("Message not found"));
-        return message.withAccepted(true);
+        Message updatedMessage = message.withAccepted(true);
+        return messageRepo.save(updatedMessage);
     }
-
+    public void deleteMessage(String messageId) {
+        if (!messageRepo.existsById(messageId)) {
+            throw new InvalidIdException("Message not found");
+        }
+        messageRepo.deleteById(messageId);
+    }
 
 
 }

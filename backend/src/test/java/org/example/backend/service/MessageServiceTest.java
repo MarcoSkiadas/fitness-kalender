@@ -78,5 +78,17 @@ class MessageServiceTest {
       when(mockRepo.findById("1")).thenReturn(Optional.empty());
       assertThrows(InvalidIdException.class, () -> messageService.acceptMessage("1"));
     }
+    @Test
+    void deleteMessage_shouldReturnTrue_whenCalled() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.TRUE);
+        messageService.deleteMessage("1");
+        verify(mockRepo, times(1)).existsById("1");
+        verify(mockRepo, times(1)).deleteById("1");
+    }
+    @Test
+    void deleteMessage_shouldReturnException_whenCalledWithWrongId() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.FALSE);
+        assertThrows(InvalidIdException.class, () -> messageService.acceptMessage("1"));
+    }
 
 }

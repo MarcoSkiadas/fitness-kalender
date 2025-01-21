@@ -1,4 +1,4 @@
-import {User} from "../components/FiKaSchema.ts";
+import {MessageType, User} from "../components/FiKaSchema.ts";
 import {useState} from "react";
 import axios from "axios";
 import {toast} from "react-toastify";
@@ -11,10 +11,27 @@ export default function FriendsAddPage(props: Readonly<FriendsAddPageProps>) {
 
     const [friendId, setFriendId] = useState("");
 
-    const handleAddFriend = () => {
-        axios.post(`/api/user/friend/${props.user?.id}/${friendId}`)
+
+
+    const handleSendMessage = () => {
+        if (friendId === "") {
+            toast.error("Please select a friend before sending a message!");
+            return;
+        }
+        const messageContent:string = `Do you want to add ${props.user?.id} as your Friend?`;
+
+        axios.post(`/api/message`, {
+            id: "",
+            recipientId: friendId,
+            senderId: props.user?.id,
+            messageContent: messageContent,
+            accepted: false,
+            read: false,
+            messageType: MessageType.REQUEST,
+            createdAt: null
+        })
             .then(r => console.log(r.data))
-            .then(() => toast.success(`Friend with ID: ${friendId} has been registered`))
+            .then(() => toast.success(`Friend request has been sent to your Friend!`))
             .catch(error => toast.error(error.response.data.errorMsg))
     }
 
@@ -34,7 +51,7 @@ export default function FriendsAddPage(props: Readonly<FriendsAddPageProps>) {
                            id={`friendId`}
                     />
                 </form>
-                <button onClick={handleAddFriend}>Add Friend</button>
+                <button onClick={handleSendMessage}>Add Friend</button>
             </div>
         </>
     )

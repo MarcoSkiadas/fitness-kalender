@@ -31,4 +31,9 @@ public class MessageController {
     public Message acceptMessage(@PathVariable String messageId) {
         return messageService.acceptMessage(messageId);
     }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/delete/{messageId}")
+    public void deleteMessage(@PathVariable String messageId) {
+        messageService.deleteMessage(messageId);
+    }
 }
