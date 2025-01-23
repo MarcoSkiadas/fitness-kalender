@@ -118,4 +118,22 @@ class MessageControllerTest {
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
+    void readMessage_shouldReturnTrue_whenCalledWithCorrectMessageId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/message/read/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isAccepted())
+                .andExpect(MockMvcResultMatchers.content().json("""
+ {
+                                     "recipientId": "1",
+                                     "senderId": "2",
+                                     "messageContent": "TestMessage1",
+                                     "accepted": false,
+                                     "read": true,
+                                     "messageType": "MESSAGE"
+                                 }
+"""))
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.createdAt").isNotEmpty());
+    }
 }

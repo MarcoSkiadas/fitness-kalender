@@ -39,17 +39,42 @@ export default function MessengerGetPage(props: Readonly<MessengerGetPageProps>)
             .then(() => toast.success(`Message has been Deleted`))
             .catch(error => toast.error(error.response.data.errorMsg));
     }
+    const handleMarkAsRead = async (messageId: string) => {
+        try {
+            await axios.put(`/api/message/read/${messageId}`);
+            toast.success(`Message with ID ${messageId} has been marked as read.`);
+        } catch (error) {
+            toast.error(`Error while marking the message: ${error}`);
+        }
+    };
+
 
 
     return(
         <>
                 {messages?.filter((message) => !message.accepted) // Nur Nachrichten mit accept === false
                     .map((message,messageIndex) => {
+                        function getFriendUsernameById(_user: User | undefined | null, friendId: string): string | null {
+                            const friend = props.user?.friends.find(f => f.id === friendId);
+                            return friend ? friend.username : null;
+                        }
+                        const senderUsername = getFriendUsernameById(props.user, message.senderId);
                     return (
-                        <div key={messageIndex} className="set-container">
+                        <div key={messageIndex}
+                             onClick={() => handleMarkAsRead(message.id)}// PUT-Request ausführen
+                             onKeyDown={() => handleMarkAsRead(message.id)}
+                             style={{
+                                 cursor: 'pointer',
+                                 backgroundColor: message.read ? '#fff' : '#f0f0f0',
+                                 border: message.read ? '1px solid #000' : '1px solid #ccc',
+                             }}>
                             <p>Type: {message.messageType}</p>
-                            <p>From: {message.senderId}</p>
-                            <p>To: {message.recipientId}</p>
+                            {senderUsername ? (
+                                <p>From: {senderUsername}</p>
+                            ) : (
+                                <p>From: {message.senderId}</p>
+                            )}
+                            <p>To: {props.user?.username}</p>
                             <p>{message.messageContent}</p>
                             {message.messageType === 'REQUEST' && (
                                 <div className="button-container">

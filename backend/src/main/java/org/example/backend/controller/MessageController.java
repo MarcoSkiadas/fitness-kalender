@@ -36,4 +36,10 @@ public class MessageController {
     public void deleteMessage(@PathVariable String messageId) {
         messageService.deleteMessage(messageId);
     }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PutMapping("/read/{messageId}")
+    public Message readMessage(@PathVariable String messageId) {
+        return messageService.readMessage(messageId);
+    }
+
 }
