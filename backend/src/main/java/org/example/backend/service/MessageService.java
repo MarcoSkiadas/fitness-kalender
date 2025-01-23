@@ -39,6 +39,11 @@ public class MessageService {
         }
         messageRepo.deleteById(messageId);
     }
+    public Message readMessage(String messageId) {
+        Message message = messageRepo.findById(messageId).orElseThrow(() -> new InvalidIdException("Message not found"));
+        Message updatedMessage = message.withRead(true);
+        return messageRepo.save(updatedMessage);
+    }
 
 
 }
