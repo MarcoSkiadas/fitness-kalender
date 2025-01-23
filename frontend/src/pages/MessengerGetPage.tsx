@@ -61,7 +61,8 @@ export default function MessengerGetPage(props: Readonly<MessengerGetPageProps>)
                         const senderUsername = getFriendUsernameById(props.user, message.senderId);
                     return (
                         <div key={messageIndex}
-                             onClick={() => handleMarkAsRead(message.id)} // PUT-Request ausführen
+                             onClick={() => handleMarkAsRead(message.id)}// PUT-Request ausführen
+                             onKeyDown={() => handleMarkAsRead(message.id)}
                              style={{
                                  cursor: 'pointer',
                                  backgroundColor: message.read ? '#fff' : '#f0f0f0',
