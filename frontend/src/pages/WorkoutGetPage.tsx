@@ -43,7 +43,6 @@ export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
     };
     const handleDelete = (workoutSession:WorkoutSession) => {
         axios.post(`/api/workoutSession/delete/${workoutSession.id}`)
-            .then(r => setWorkoutSessions(r.data))
             .then(() => toast.success(`WorkoutSession has been deleted`))
             .catch((r) => toast.error(r.data))
     }
