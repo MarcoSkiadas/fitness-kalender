@@ -38,4 +38,9 @@ public class WorkoutSessionController {
         List<WorkoutSession> sessions = workoutSessionService.getWorkoutSessionByUserId(userId);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(sessions);
     }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/delete/{workoutSessionId}")
+    public void deleteWorkoutSession(@PathVariable String workoutSessionId) {
+        workoutSessionService.deleteWorkoutSession(workoutSessionId);
+    }
 }

@@ -90,7 +90,7 @@ class MessageServiceTest {
     @Test
     void deleteMessage_shouldReturnException_whenCalledWithWrongId() {
         when(mockRepo.existsById("1")).thenReturn(Boolean.FALSE);
-        assertThrows(InvalidIdException.class, () -> messageService.acceptMessage("1"));
+        assertThrows(InvalidIdException.class, () -> messageService.deleteMessage("1"));
     }
     @Test
     void readMessage_shouldReturnTrue_whenCalled() {

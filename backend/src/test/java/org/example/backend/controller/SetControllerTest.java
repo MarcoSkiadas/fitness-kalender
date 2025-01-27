@@ -102,5 +102,10 @@ class SetControllerTest {
                         .with(csrf()))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-
+    @Test
+    void deleteSet_shouldDeleteSet_whenCalledWithCorrectSetId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/set/delete/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }

@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Set;
 import org.example.backend.repository.SetRepo;
@@ -45,4 +46,11 @@ public class SetService {
         userService.saveUser(fiKaUser.withSets(updatedSets));
 
     }
+
+    public void deleteSet(String setId) {
+        if (!setRepo.existsById(setId)) {
+            throw new InvalidIdException("Set not found");
+        }
+        setRepo.deleteById(setId);
     }
+}

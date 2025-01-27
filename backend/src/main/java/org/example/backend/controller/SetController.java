@@ -37,5 +37,11 @@ public class SetController {
     public void updateSet(@RequestBody Set updatedSet, @PathVariable String setId, @PathVariable String userId) {
         setService.updateSet(updatedSet,setId,userId);
     }
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("delete/{setId}")
+    public void deleteSet(@PathVariable String setId) {
+        setService.deleteSet(setId);
+    }
+
 
 }

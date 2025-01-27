@@ -4,6 +4,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useParams} from "react-router-dom";
 import { Collapse } from "react-collapse";
+import Swal from 'sweetalert2';
 
 
 type WorkoutGetPageProps = {
@@ -40,6 +41,30 @@ export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
             [index]: !prevState[index],
         }));
     };
+    const handleDelete = (workoutSession:WorkoutSession) => {
+        axios.post(`/api/workoutSession/delete/${workoutSession.id}`)
+            .then(r => setWorkoutSessions(r.data))
+            .then(() => toast.success(`WorkoutSession has been deleted`))
+            .catch((r) => toast.error(r.data))
+    }
+
+    const handleDeleteWithConfirmation = (workoutSession:WorkoutSession) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This workout will be deleted permanently!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDelete(workoutSession);
+                Swal.fire('Deleted!', 'this workout has been deleted.', 'success');
+            }
+        });
+    };
 
     return(<>
         <div>
@@ -58,6 +83,7 @@ export default function WorkoutGetPage(props: Readonly<WorkoutGetPageProps>) {
                         >
                             {openSessions[workoutSessionIndex] ? "Hide Details" : "Show Details"}
                         </button>
+                        <button onClick={() => handleDeleteWithConfirmation(workoutSession)}>Delete Workout</button>
                         <p className="set-name">
                             Workout Date: {formatDate(workoutSession.workoutDate)}
                         </p>
