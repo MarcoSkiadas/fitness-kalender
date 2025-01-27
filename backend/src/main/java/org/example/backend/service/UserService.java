@@ -97,4 +97,9 @@ public class UserService implements UserDetailsService {
         fiKaUser = fiKaUser.withFriends(newFriends);
         userRepo.save(fiKaUser);
     }
+    public void deleteSetFromUser(String userId, String setId) {
+        FiKaUser fiKaUser = getUserById(userId);
+        FiKaUser updatedUser = fiKaUser.deleteSetById(setId);
+        userRepo.save(updatedUser);
+    }
 }

@@ -25,7 +25,7 @@ export default function SetGetPage(props: Readonly<SetGetPageProps>) {
     };
 
     const handleDelete = (SetGet:Set) => {
-        axios.post(`/api/set/delete/${SetGet.id}`)
+        axios.post(`/api/set/delete/${SetGet.id}/${props.user?.id}`)
             .then(() => toast.success(`WorkoutSession has been deleted`))
             .catch((r) => toast.error(r.data))
     }
