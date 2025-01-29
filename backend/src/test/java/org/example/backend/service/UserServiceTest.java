@@ -110,8 +110,8 @@ class UserServiceTest {
     void createNewUser_shouldReturnException_whenCalledWithTakenUsername() throws InvalidIdException {
         FiKaUser testAppUser = new FiKaUser("1", "testUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
         mockRepo.save(testAppUser);
-        when(mockRepo.findByUsername("testUser")).thenReturn(Optional.of(testAppUser));
-        assertThrows(RuntimeException.class, () -> userService.createNewUser(new RegisterUserDTO("TestUser", "swordfish")));
+        when(mockRepo.findByUsername("testuser")).thenReturn(Optional.of(testAppUser));
+        assertThrows(InvalidIdException.class, () -> userService.createNewUser(new RegisterUserDTO("testuser", "swordfish")));
     }
 
     @Test
@@ -194,6 +194,28 @@ class UserServiceTest {
     }
     @Test
     void deleteSetFromUser_shouldDeleteSet_whenCalledCorrectly() throws InvalidIdException {
+        String userId = "1";
+        String setId = "set123";
+        SetExercise setExercise1 = new SetExercise("TestExercise1",3,3);
+        Set testSet = new Set(setId,"1","TestSet",new SetExercise[]{setExercise1},LocalDateTime.now(),LocalDateTime.now());
+        FiKaUser testUser = spy(new FiKaUser(userId, "testUser", "swordfish", "USER", LocalDateTime.now(), new Set[]{testSet}, new Friend[0]));
+        when(mockRepo.findById(userId)).thenReturn(Optional.of(testUser));
+        FiKaUser updatedUser = new FiKaUser(userId, "testUser", "swordfish", "USER", LocalDateTime.now(),new Set[0], new Friend[0]);
+
+        when(testUser.deleteSetById(setId)).thenReturn(updatedUser);
+
+        // Act
+        userService.deleteSetFromUser(userId, setId);
+
+        // Assert
+        verify(mockRepo).save(updatedUser);
         }
+    @Test
+    void deleteSetFromUser_shouldReturnException_whenUserNotFound() {
+        String userId = "1";
+        String setId = "set123";
+        when(mockRepo.findById(userId)).thenReturn(Optional.empty());
+        assertThrows(InvalidIdException.class, () -> userService.deleteSetFromUser(userId, setId));
+    }
 
     }
