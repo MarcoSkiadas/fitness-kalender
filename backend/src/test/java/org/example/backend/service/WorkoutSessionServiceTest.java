@@ -1,5 +1,6 @@
 package org.example.backend.service;
 
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.Set;
 import org.example.backend.model.WorkoutExercise;
 import org.example.backend.model.WorkoutSession;
@@ -93,5 +94,17 @@ class WorkoutSessionServiceTest {
         assertEquals(workoutSessions, actualWorkoutSession);
         verify(mockRepo).findByUserId("1");
 
+    }
+    @Test
+    void deleteWorkoutSession_shouldReturnTrue_whenCalled() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.TRUE);
+        workoutSessionService.deleteWorkoutSession("1");
+        verify(mockRepo, times(1)).existsById("1");
+        verify(mockRepo, times(1)).deleteById("1");
+    }
+    @Test
+    void deleteWorkoutSession_shouldReturnException_whenCalledWithWrongId() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.FALSE);
+        assertThrows(InvalidIdException.class, () -> workoutSessionService.deleteWorkoutSession("1"));
     }
 }

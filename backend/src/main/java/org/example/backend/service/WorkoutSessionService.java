@@ -1,6 +1,7 @@
 package org.example.backend.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.WorkoutSession;
 import org.example.backend.repository.WorkoutSessionRepo;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,12 @@ public class WorkoutSessionService {
 
     public List<WorkoutSession> getWorkoutSessionByUserId(String userId) {
         return workoutSessionRepo.findByUserId(userId);
+    }
+
+    public void deleteWorkoutSession(String workoutSessionId) {
+        if (!workoutSessionRepo.existsById(workoutSessionId)) {
+            throw new InvalidIdException("WorkoutSession not found");
+        }
+        workoutSessionRepo.deleteById(workoutSessionId);
     }
 }

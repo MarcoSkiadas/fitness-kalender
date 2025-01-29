@@ -43,4 +43,10 @@ public record FiKaUser(
                         ", friends=" + Arrays.toString(friends) +
                         '}';
         }
+        public FiKaUser deleteSetById(String setId) {
+                Set[] updatedSets = Arrays.stream(sets)
+                        .filter(set -> !Objects.equals(set.id(), setId))
+                        .toArray(Set[]::new);
+                return this.withSets(updatedSets);
+        }
 }

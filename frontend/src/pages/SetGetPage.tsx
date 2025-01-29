@@ -1,6 +1,9 @@
-import {User} from "../components/FiKaSchema.ts";
+import {User, Set} from "../components/FiKaSchema.ts";
 import {useState} from "react";
 import { Collapse } from "react-collapse";
+import axios from "axios";
+import {toast} from "react-toastify";
+import Swal from "sweetalert2";
 
 
 type SetGetPageProps = {
@@ -21,6 +24,30 @@ export default function SetGetPage(props: Readonly<SetGetPageProps>) {
         }));
     };
 
+    const handleDelete = (SetGet:Set) => {
+        axios.post(`/api/set/delete/${SetGet.id}/${props.user?.id}`)
+            .then(() => toast.success(`WorkoutSession has been deleted`))
+            .catch((r) => toast.error(r.data))
+    }
+
+    const handleDeleteWithConfirmation = (SetGet:Set) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'This set will be deleted permanently!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete!',
+            cancelButtonText: 'Cancel',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                handleDelete(SetGet);
+                Swal.fire('Deleted!', 'this set has been deleted.', 'success');
+            }
+        });
+    };
+
     return (
         <>
             {userSets?.map((SetGet, setIndex) => {
@@ -33,6 +60,8 @@ export default function SetGetPage(props: Readonly<SetGetPageProps>) {
                         >
                             {expandedStates[setIndex] ? "Hide Details" : "Show Details"}
                         </button>
+                        <button onClick={() => handleDeleteWithConfirmation(SetGet)}>Delete Set</button>
+
                         <Collapse isOpened={expandedStates[setIndex]}>
                             {SetGet.exercise.map((exercise, exerciseIndex) => (
                                 <div key={exerciseIndex} className="exercise">

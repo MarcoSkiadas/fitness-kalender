@@ -1,5 +1,6 @@
 package org.example.backend.service;
 
+import org.example.backend.exceptions.InvalidIdException;
 import org.example.backend.model.FiKaUser;
 import org.example.backend.model.Friend;
 import org.example.backend.model.Set;
@@ -92,6 +93,16 @@ class SetServiceTest {
         Set[] updaters = testAppUser.sets();
         assertEquals(Optional.of(setExercise1), Arrays.stream(updaters[0].exercise()).findFirst());
     }
-
-
+    @Test
+    void deleteSet_shouldReturnTrue_whenCalled() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.TRUE);
+        setService.deleteSet("1");
+        verify(mockRepo, times(1)).existsById("1");
+        verify(mockRepo, times(1)).deleteById("1");
+    }
+    @Test
+    void deleteSet_shouldReturnException_whenCalledWithWrongId() {
+        when(mockRepo.existsById("1")).thenReturn(Boolean.FALSE);
+        assertThrows(InvalidIdException.class, () -> setService.deleteSet("1"));
+    }
 }

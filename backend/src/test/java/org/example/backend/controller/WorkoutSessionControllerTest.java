@@ -178,4 +178,10 @@ class WorkoutSessionControllerTest {
                                  ]
 """));
     }
+    @Test
+    void deleteWorkoutSession_shouldDeleteWorkoutSession_whenCalledWithCorrectWorkoutSessionId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/workoutSession/delete/1")
+                        .with(csrf()))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
 }
